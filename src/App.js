@@ -7,8 +7,9 @@ import 'firebase/analytics';
 import SignUp from './containers/SignUp';
 import Login from './containers/Login';
 import { clearCurrentUser } from './actions/currentUser';
-import Toolbar from './components/Toolbar';
+import Toolbar from './containers/Toolbar';
 import { appInitialize } from './actions/appInit';
+import ProtectedRoute from './containers/ProtectedRoute';
 
 const config = {
   apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
@@ -37,7 +38,7 @@ function App(props) {
       <Toolbar />
 
       <Switch>
-        <Route exact path="/" component={() => <h1>Start</h1>} />
+        <ProtectedRoute exact path="/" component={() => <h1>Start</h1>} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={SignUp} />
       </Switch>

@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import SignUpForm from '../../components/SignUpForm';
 
-const SignUp = () => {
+const SignUp = (props) => {
+    useEffect(() => {
+        if (props.currentUser.uid) {
+            props.history.push('/');
+        }
+    })
+
     const handleSignUp = async (signUpData) => {
         try {
             const credentials = await firebase.auth().createUserWithEmailAndPassword(signUpData.email, signUpData.password);
@@ -33,5 +40,11 @@ const SignUp = () => {
         />
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.currentUser,
+    }
+}
  
-export default SignUp;
+export default connect(mapStateToProps)(SignUp);
