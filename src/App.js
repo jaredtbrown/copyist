@@ -1,26 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { connect } from 'react-redux';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/analytics';
+import SignUp from './containers/SignUp';
+import Login from './containers/Login';
+import { clearCurrentUser } from './actions/currentUser';
+import Toolbar from './components/Toolbar';
+import { appInitialize } from './actions/appInit';
 
-function App() {
+const config = {
+  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
+  authDomain: `${process.env.REACT_APP_FIREBASE_AUTH_DOMAIN}`,
+  databaseURL: `${process.env.REACT_APP_FIREBASE_DATABASE_URL}`,
+  projectId: `${process.env.REACT_APP_FIREBASE_PROJECTID}`,
+  storageBucket: `${process.env.REACT_APP_FIREBASE_STORAGE_BUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_FIREBASE_MESSAGING_SENDERID}`,
+  appId: `${process.env.REACT_APP_FIREBASE_APPID}`,
+  measurementId: `${process.env.REACT_APP_FIREBASE_MEASUREMENTID}`
+}
+firebase.initializeApp(config);
+firebase.analytics();
+
+function App(props) {
+  firebase.auth().onAuthStateChanged(async (user) => {
+    if (user) {
+      await props.dispatch(appInitialize(user));
+    } else {
+      props.dispatch(clearCurrentUser());
+    }
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Toolbar />
+
+      <Switch>
+        <Route exact path="/" component={() => <h1>Start</h1>} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser,
+  }
+}
+
+export default connect(mapStateToProps)(App);
