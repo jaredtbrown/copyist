@@ -51,7 +51,7 @@ const TerritoriesList = (props) => {
                     <Typography variant="h5" className={classes.flex}>
                         Territories
                     </Typography>
-                    <Button color="secondary" variant="contained">
+                    <Button color="secondary" variant="contained" onClick={props.onCreateClick}>
                         Create
                     </Button>
                 </Toolbar>
