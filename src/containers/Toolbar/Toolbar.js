@@ -14,7 +14,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
+import Button from '../../components/Button';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 

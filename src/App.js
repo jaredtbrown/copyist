@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
-import { makeStyles } from '@material-ui/core/styles';
 import SignUp from './containers/SignUp';
 import Login from './containers/Login';
 import { clearCurrentUser } from './actions/currentUser';
 import Toolbar from './containers/Toolbar';
 import { appInitialize } from './actions/appInit';
 import ProtectedRoute from './containers/ProtectedRoute';
+import Territories from './containers/Territories';
 
 const config = {
   apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
@@ -25,14 +25,6 @@ const config = {
 firebase.initializeApp(config);
 firebase.analytics();
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-      paddingTop: theme.mixins.toolbar.minHeight,
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3)
-  },
-}));
-
 function App(props) {
   const { dispatch } = props;
 
@@ -44,21 +36,18 @@ function App(props) {
         dispatch(clearCurrentUser());
       }
     });
-  }, [dispatch])
+  }, [dispatch]);
 
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
       <BrowserRouter >
         <Toolbar />
 
         <Switch>
-          <ProtectedRoute exact path="/" component={() => <h1>Start</h1>} />
+          <ProtectedRoute exact path="/" component={Territories} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
         </Switch>
       </BrowserRouter>
-    </div>
   );
 }
 
