@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import firebase from 'firebase/app';
@@ -25,13 +25,17 @@ firebase.initializeApp(config);
 firebase.analytics();
 
 function App(props) {
-  firebase.auth().onAuthStateChanged(async (user) => {
-    if (user) {
-      await props.dispatch(appInitialize(user));
-    } else {
-      props.dispatch(clearCurrentUser());
-    }
-  });
+  const { dispatch } = props;
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        await dispatch(appInitialize(user));
+      } else {
+        dispatch(clearCurrentUser());
+      }
+    });
+  }, [dispatch])
 
   return (
     <BrowserRouter>

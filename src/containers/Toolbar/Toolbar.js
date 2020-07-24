@@ -38,6 +38,7 @@ const Toolbar = (props) => {
     const handleLogout = async () => {
         try {
             await firebase.auth().signOut();
+            handleClose();
         } catch (error) {
             console.log(error);
         }
