@@ -32,8 +32,8 @@ const TerritoriesList = (props) => {
     const renderTerritory = (territory) => (
         <TableRow key={territory.id}>
             <TableCell>{territory.number}</TableCell>
-            <TableCell>{new Date(territory.createdAt.nanoseconds).toLocaleTimeString()}</TableCell>
-            <TableCell>{(territory.updatedAt) ? new Date(territory.updatedAt.nanoseconds).toLocaleTimeString() : ''}</TableCell>
+            <TableCell>{`${territory.createdAt.toDate().toLocaleDateString()} ${territory.createdAt.toDate().toLocaleTimeString()}`}</TableCell>
+            <TableCell>{(territory.updatedAt) ? `${territory.updatedAt.toDate().toLocaleDateString()} ${territory.updatedAt.toDate().toLocaleTimeString()}` : ''}</TableCell>
             <TableCell align="right">
                 <IconButton onClick={() => handleViewExternalLinkClick(territory.externalLink)}>
                     <MapIcon />
