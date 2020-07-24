@@ -10,7 +10,11 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     textFields: {
         marginBottom: theme.spacing(2),
-    }
+    },
+    paper: {
+        borderRadius: 16,
+        padding: theme.spacing(3)
+    },
 }));
 
 const CreateTerritoryForm = (props) => {
@@ -31,30 +35,30 @@ const CreateTerritoryForm = (props) => {
 
     const classes = useStyles();
     return (
-        <Dialog open={props.open} onClose={props.handleClose}>
+        <Dialog open={props.open} onClose={props.handleClose} classes={{ paper: classes.paper, }}>
             <DialogTitle>Create Territory</DialogTitle>
             <DialogContent>
-            <TextField
-                label="Number"
-                variant="outlined"
-                type="number"
-                name="number"
-                onChange={handleInputChange}
-                fullWidth
-                className={classes.textFields}
-            />
-            <TextField
-                label="External Link"
-                variant="outlined"
-                type="text"
-                name="externalLink"
-                onChange={handleInputChange}
-                fullWidth
-                className={classes.textFields}
-            />
+                <TextField
+                    label="Number"
+                    variant="outlined"
+                    type="number"
+                    name="number"
+                    onChange={handleInputChange}
+                    fullWidth
+                    className={classes.textFields}
+                />
+                <TextField
+                    label="External Link"
+                    variant="outlined"
+                    type="text"
+                    name="externalLink"
+                    onChange={handleInputChange}
+                    fullWidth
+                    className={classes.textFields}
+                />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleOnCreateClick} fullWidth color="secondary" variant="contained">Create</Button>
+            <Button onClick={handleOnCreateClick} fullWidth color="secondary" variant="contained">Create</Button>
             </DialogActions>
         </Dialog>
     );

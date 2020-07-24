@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import SignUp from './containers/SignUp';
 import Login from './containers/Login';
 import { clearCurrentUser } from './actions/currentUser';
@@ -38,16 +39,35 @@ function App(props) {
     });
   }, [dispatch]);
 
-  return (
-      <BrowserRouter >
-        <Toolbar />
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#3e588c"
+      },
+      secondary: {
+        main: "#4f9c72"
+      },
+      error: {
+        main: '#D93829'
+      },
+    },
+    shape: {
+      borderRadius: 0
+    },
+  });
 
-        <Switch>
-          <ProtectedRoute exact path="/" component={Territories} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={SignUp} />
-        </Switch>
-      </BrowserRouter>
+  return (
+      <MuiThemeProvider theme={theme}>
+        <BrowserRouter >
+          <Toolbar />
+
+          <Switch>
+            <ProtectedRoute exact path="/" component={Territories} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
+          </Switch>
+        </BrowserRouter>
+      </MuiThemeProvider>
   );
 }
 

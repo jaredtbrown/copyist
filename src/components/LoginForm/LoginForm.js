@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme => ({
     },
     signUpCard: {
         margin: '0 auto',
+        padding: theme.spacing(3),
+        borderRadius: 16,
     },
 }));
 
@@ -46,7 +48,7 @@ const LoginForm = (props) => {
     const classes = useStyles(props);
     return (
         <div className={classes.root}>
-            <Card className={classes.signUpCard}>
+            <Card className={classes.signUpCard} classes={{ paper: classes.signUpCardPaper }}>
                 <CardHeader title="Login" />
                 <CardContent>
                     <TextField

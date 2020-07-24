@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
         display: 'flex',
         height: '100vh',
         justifyContent: 'center',
@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme => ({
     },
     signUpCard: {
         margin: '0 auto',
+        padding: theme.spacing(3),
+        borderRadius: 16,
     },
 }));
 

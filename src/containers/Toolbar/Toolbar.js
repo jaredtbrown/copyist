@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     flex: {
         flexGrow: 1,
     },
+    appBar: {
+        boxShadow: 0,
+    }
 }));
 
 const Toolbar = (props) => {
@@ -46,7 +49,7 @@ const Toolbar = (props) => {
 
     const classes = useStyles();
     return (
-        <AppBar position="fixed">
+        <AppBar position="fixed" className={classes.appBar} elevation={0}>
             <MuiToolbar>
                 <Typography variant="h6" className={classes.flex}>
                     {props.team.name}
@@ -80,7 +83,7 @@ const Toolbar = (props) => {
                                 variant="outlined"
                                 onClick={handleLogout} 
                                 fullWidth
-                                color="secondary"
+                                color="primary"
                             >
                                 Log Out
                             </Button>
