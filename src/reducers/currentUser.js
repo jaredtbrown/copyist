@@ -1,7 +1,7 @@
 import { SET_CURRENT_USER, CLEAR_CURRENT_USER } from "../actions/actionTypes";
 
 const initialState = {
-    uid: '',
+    uid: localStorage.getItem('userId'),
     firstName: '',
     lastName: '',
     teamId: '',

@@ -45,7 +45,7 @@ const Toolbar = (props) => {
 
     const classes = useStyles();
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <MuiToolbar>
                 <Typography variant="h6" className={classes.flex}>
                     {props.team.name}
