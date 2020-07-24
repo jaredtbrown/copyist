@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/analytics';
+import { makeStyles } from '@material-ui/core/styles';
 import SignUp from './containers/SignUp';
 import Login from './containers/Login';
 import { clearCurrentUser } from './actions/currentUser';
@@ -24,6 +25,14 @@ const config = {
 firebase.initializeApp(config);
 firebase.analytics();
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+      paddingTop: theme.mixins.toolbar.minHeight,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3)
+  },
+}));
+
 function App(props) {
   const { dispatch } = props;
 
@@ -37,16 +46,19 @@ function App(props) {
     });
   }, [dispatch])
 
+  const classes = useStyles();
   return (
-    <BrowserRouter>
-      <Toolbar />
+    <div className={classes.root}>
+      <BrowserRouter >
+        <Toolbar />
 
-      <Switch>
-        <ProtectedRoute exact path="/" component={() => <h1>Start</h1>} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={SignUp} />
-      </Switch>
-    </BrowserRouter>
+        <Switch>
+          <ProtectedRoute exact path="/" component={() => <h1>Start</h1>} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 
