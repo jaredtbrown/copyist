@@ -14,17 +14,15 @@ import firebaseWrapper from './helpers/firebaseWrapper';
 firebaseWrapper.initializeApp();
 
 function App(props) {
-  const { dispatch } = props;
-
   useEffect(() => {
     firebaseWrapper.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        await dispatch(appInitialize(user));
+          await props.dispatch(appInitialize(user));
       } else {
-        dispatch(clearCurrentUser());
+        props.dispatch(clearCurrentUser());
       }
     });
-  }, [dispatch]);
+  })
 
   const theme = createMuiTheme({
     palette: {
@@ -58,10 +56,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.currentUser,
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default connect(null)(App);
