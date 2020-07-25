@@ -18,6 +18,8 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         zIndex: theme.zIndex.appBar + 1,
         position: 'relative',
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
         '& .MuiTextField-root': {
             marginBottom: theme.spacing(2),
         },
@@ -26,6 +28,7 @@ const useStyles = makeStyles(theme => ({
         margin: '0 auto',
         padding: theme.spacing(3),
         borderRadius: 16,
+        maxWidth: 400,
     },
 }));
 
