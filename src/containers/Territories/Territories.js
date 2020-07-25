@@ -1,33 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux'
-import { setTerritories } from '../../actions/terrtories';
+import { connect } from 'react-redux';
 import TerritoriesList from '../../components/TerritoriesList';
 import CreateTerritoryForm from '../../components/CreateTerritoryForm';
 import firebaseWrapper from '../../helpers/firebaseWrapper';
+import { getTerrritories } from '../../actions/terrtories';
 
 const Territories = (props) => {
     const { currentUser, dispatch } = props;
     const [newTerritoryDialogOpen, setNewTerritoryDialogOpen] = useState(false);
 
     useEffect(() => {
-        const database = firebaseWrapper.firestore();
-        try {
-            database.collection('territories')
-                .where('teamId', '==', currentUser.teamId)
-                .onSnapshot(snapShot => {
-                    const territories = [];
-                    snapShot.forEach(document => {
-                        const territory = {
-                            id: document.id,
-                            ...document.data(),
-                        }
-                        territories.push(territory);
-                    });
-                    dispatch(setTerritories(territories));
-                });
-        } catch (error) {
-            console.log(error);
-        }
+        dispatch(getTerrritories(currentUser.teamId))
     }, [currentUser.teamId, dispatch]);
 
     const handleOnCreateTerritoryClick = () => {
@@ -55,7 +38,7 @@ const Territories = (props) => {
 
     return (
         <React.Fragment>
-            <TerritoriesList territories={props.territories} onCreateClick={handleOnCreateTerritoryClick} />
+            <TerritoriesList territories={props.territoriesState.territories} onCreateClick={handleOnCreateTerritoryClick} />
             <CreateTerritoryForm open={newTerritoryDialogOpen} onCreateClick={createNewTerritory} handleClose={handleOnCreateTerritoryClose} />
         </React.Fragment>
     );
@@ -64,7 +47,7 @@ const Territories = (props) => {
 const mapStateToProps = (state) => {
     return {
         currentUser: state.currentUser,
-        territories: state.territories,
+        territoriesState: state.territories,
     }
 }
 
