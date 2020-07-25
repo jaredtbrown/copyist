@@ -11,7 +11,11 @@ import MapIcon from '@material-ui/icons/Map';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '../Button';
-import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import CreateIcon from '@material-ui/icons/Create';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,6 +25,14 @@ const useStyles = makeStyles((theme) => ({
     },
     flex: {
         flexGrow: 1,
+    },
+    fabIcon: {
+        marginRight: theme.spacing(1),
+    },
+    fab: {
+        position: 'fixed',
+        bottom: theme.spacing(3),
+        right: theme.spacing(3)
     }
 }));
 
@@ -43,7 +55,7 @@ const TerritoriesList = (props) => {
     );
 
     const classes = useStyles();
-
+    const theme = useTheme();
     return (  
         <div className={classes.root}>
             <TableContainer component={Paper}>
@@ -51,9 +63,12 @@ const TerritoriesList = (props) => {
                     <Typography variant="h5" className={classes.flex}>
                         Territories
                     </Typography>
-                    <Button color="secondary" variant="contained" onClick={props.onCreateClick}>
-                        Create
-                    </Button>
+                    {
+                        (useMediaQuery(theme.breakpoints.up('lg'))) &&
+                        <Button color="secondary" variant="contained" onClick={props.onCreateClick}>
+                            Create
+                        </Button>
+                    }
                 </Toolbar>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -69,6 +84,14 @@ const TerritoriesList = (props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            {
+                (useMediaQuery(theme.breakpoints.down('md'))) &&
+                <Fab variant="extended" color="secondary" className={classes.fab} onClick={props.onCreateClick}>
+                    <CreateIcon className={classes.fabIcon} />
+                    Create
+                </Fab>
+            }
         </div>
     );
 }
