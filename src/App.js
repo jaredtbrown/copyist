@@ -12,19 +12,9 @@ import Toolbar from './containers/Toolbar';
 import { appInitialize } from './actions/appInit';
 import ProtectedRoute from './containers/ProtectedRoute';
 import Territories from './containers/Territories';
+import firebaseWrapper from './helpers/firebaseWrapper';
 
-const config = {
-  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
-  authDomain: `${process.env.REACT_APP_FIREBASE_AUTH_DOMAIN}`,
-  databaseURL: `${process.env.REACT_APP_FIREBASE_DATABASE_URL}`,
-  projectId: `${process.env.REACT_APP_FIREBASE_PROJECTID}`,
-  storageBucket: `${process.env.REACT_APP_FIREBASE_STORAGE_BUCKET}`,
-  messagingSenderId: `${process.env.REACT_APP_FIREBASE_MESSAGING_SENDERID}`,
-  appId: `${process.env.REACT_APP_FIREBASE_APPID}`,
-  measurementId: `${process.env.REACT_APP_FIREBASE_MEASUREMENTID}`
-}
-firebase.initializeApp(config);
-firebase.analytics();
+firebaseWrapper.initializeApp();
 
 function App(props) {
   const { dispatch } = props;
