@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import LoginForm from '../../components/LoginForm';
+import firebaseWrapper from '../../helpers/firebaseWrapper';
 
 const Login = (props) => {
     useEffect(() => {
@@ -13,7 +12,7 @@ const Login = (props) => {
 
     const handleLoginClick = async (email, password) => {
         try {
-            await firebase.auth().signInWithEmailAndPassword(email, password);
+            await firebaseWrapper.auth().signInWithEmailAndPassword(email, password);
             props.history.push('/');
         } catch (error) {
             console.log(error)

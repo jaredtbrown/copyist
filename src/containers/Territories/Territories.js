@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { connect } from 'react-redux'
 import { setTerritories } from '../../actions/terrtories';
 import TerritoriesList from '../../components/TerritoriesList';
 import CreateTerritoryForm from '../../components/CreateTerritoryForm';
+import firebaseWrapper from '../../helpers/firebaseWrapper';
 
 const Territories = (props) => {
     const { currentUser, dispatch } = props;
     const [newTerritoryDialogOpen, setNewTerritoryDialogOpen] = useState(false);
 
     useEffect(() => {
-        const database = firebase.firestore();
+        const database = firebaseWrapper.firestore();
         try {
             database.collection('territories')
                 .where('teamId', '==', currentUser.teamId)
@@ -40,11 +39,11 @@ const Territories = (props) => {
     }
 
     const createNewTerritory = async (territory) => {
-        const database = firebase.firestore();
+        const database = firebaseWrapper.firestore();
         try {
             await database.collection('territories').add({
                 number: territory.number,
-                createdAt: firebase.firestore.Timestamp.now(),
+                createdAt: firebaseWrapper.firestore.Timestamp.now(),
                 teamId: currentUser.teamId,
                 externalLink: territory.externalLink,
             });

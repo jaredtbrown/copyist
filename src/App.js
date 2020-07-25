@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from 'react-redux';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/analytics';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import SignUp from './containers/SignUp';
 import Login from './containers/Login';
@@ -20,7 +17,7 @@ function App(props) {
   const { dispatch } = props;
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(async (user) => {
+    firebaseWrapper.auth().onAuthStateChanged(async (user) => {
       if (user) {
         await dispatch(appInitialize(user));
       } else {

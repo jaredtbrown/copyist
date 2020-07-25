@@ -1,11 +1,10 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { setCurrentUser } from './currentUser';
 import { setTeam } from './team';
+import firebaseWrapper from '../helpers/firebaseWrapper';
 
 export const appInitialize = (user) => {
     return async (dispatch) => {
-        const database = firebase.firestore();
+        const database = firebaseWrapper.firestore();
         try {
             const userDocument = await database.doc(`users/${user.uid}`).get();
             const userData = userDocument.data();

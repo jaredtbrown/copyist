@@ -15,8 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Button from '../../components/Button';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import firebaseWrapper from '../../helpers/firebaseWrapper';
 
 const useStyles = makeStyles((theme) => ({
     flex: {
@@ -40,7 +39,7 @@ const Toolbar = (props) => {
 
     const handleLogout = async () => {
         try {
-            await firebase.auth().signOut();
+            await firebaseWrapper.auth().signOut();
             handleClose();
         } catch (error) {
             console.log(error);
