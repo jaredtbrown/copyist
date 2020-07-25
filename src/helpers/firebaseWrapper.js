@@ -21,6 +21,7 @@ const firebaseWrapper = {
     },
     auth: () => firebase.auth(),
     firestore: () => firebase.firestore(),
+    timestamp: firebase.firestore.Timestamp,
 }
 
 export default firebaseWrapper;

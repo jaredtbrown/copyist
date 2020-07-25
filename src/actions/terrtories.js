@@ -1,4 +1,4 @@
-import { SET_TERRITORIES, GET_TERRITORIES_REQUEST, GET_TERRITORIES_SUCCESS, GET_TERRITORIES_FAILURE } from "./actionTypes"
+import { GET_TERRITORIES_REQUEST, GET_TERRITORIES_SUCCESS, GET_TERRITORIES_FAILURE, CREATE_TERRITORY_REQUEST, CREATE_TERRITORY_SUCCESS, CREATE_TERRITORY_FAILURE } from "./actionTypes"
 import firebaseWrapper from "../helpers/firebaseWrapper";
 
 const getTerritoriesRequest = () => ({
@@ -37,3 +37,34 @@ export const getTerrritories = (teamId) => {
         }
     }
 }
+
+const createTerritoryRequest = () => ({
+    type: CREATE_TERRITORY_REQUEST,
+});
+
+const createTerritorySuccess = (territory) => ({
+    type: CREATE_TERRITORY_SUCCESS,
+    territory,
+});
+
+const createTerritoryFailure = () => ({
+    type: CREATE_TERRITORY_FAILURE,
+});
+
+export const createTerritory = (territory) => {
+    return async (dispatch) => {
+        dispatch(createTerritoryRequest());
+        try {
+            const database = firebaseWrapper.firestore();
+            await database.collection('territories').add({
+                number: territory.number,
+                createdAt: firebaseWrapper.timestamp.now(),
+                teamId: territory.teamId,
+                externalLink: territory.externalLink,
+            });
+            return dispatch(createTerritorySuccess());
+        } catch (error) {
+            return dispatch(createTerritoryFailure(error));
+        }
+    }
+};

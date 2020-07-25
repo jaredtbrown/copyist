@@ -1,4 +1,4 @@
-import { GET_TERRITORIES_REQUEST, GET_TERRITORIES_SUCCESS, GET_TERRITORIES_FAILURE } from "../actions/actionTypes";
+import { GET_TERRITORIES_REQUEST, GET_TERRITORIES_SUCCESS, GET_TERRITORIES_FAILURE, } from "../actions/actionTypes";
 
 const initialState = {
     isFetching: false,

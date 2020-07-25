@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, CLEAR_CURRENT_USER, GET_CURRENT_USER_REQUEST, GET_CURRENT_USER_SUCCESS, GET_CURRENT_USER_FAILURE } from "./actionTypes";
+import { CLEAR_CURRENT_USER, GET_CURRENT_USER_REQUEST, GET_CURRENT_USER_SUCCESS, GET_CURRENT_USER_FAILURE } from "./actionTypes";
 import firebaseWrapper from "../helpers/firebaseWrapper";
 
 const getCurrentUserRequest = () => ({

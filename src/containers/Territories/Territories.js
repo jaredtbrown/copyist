@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import TerritoriesList from '../../components/TerritoriesList';
 import CreateTerritoryForm from '../../components/CreateTerritoryForm';
-import firebaseWrapper from '../../helpers/firebaseWrapper';
-import { getTerrritories } from '../../actions/terrtories';
+import { getTerrritories, createTerritory } from '../../actions/terrtories';
 
 const Territories = (props) => {
     const { currentUser, dispatch } = props;
@@ -22,18 +21,12 @@ const Territories = (props) => {
     }
 
     const createNewTerritory = async (territory) => {
-        const database = firebaseWrapper.firestore();
-        try {
-            await database.collection('territories').add({
-                number: territory.number,
-                createdAt: firebaseWrapper.firestore.Timestamp.now(),
-                teamId: currentUser.teamId,
-                externalLink: territory.externalLink,
-            });
-            setNewTerritoryDialogOpen(false);
-        } catch (error) {
-            console.log(error);
-        }
+        await dispatch(createTerritory({
+            number: territory.number,
+            teamId: currentUser.teamId,
+            externalLink: territory.externalLink,
+        }));
+        setNewTerritoryDialogOpen(false);
     }
 
     return (
