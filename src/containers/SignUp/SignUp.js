@@ -17,14 +17,14 @@ const SignUp = (props) => {
 
             const newTeam = await db.collection('teams').add({
                 name: signUpData.teamName,
-                createdAt: firebaseWrapper.firestore.Timestamp.now(),
+                createdAt: firebaseWrapper.timestamp.now(),
             });
 
             const newUser = credentials.user;
-            db.collection('users').doc(newUser.uid).set({
+            await db.collection('users').doc(newUser.uid).set({
                 firstName: signUpData.firstName,
                 lastName: signUpData.lastName,
-                createdAt: firebaseWrapper.firestore.Timestamp.now(),
+                createdAt: firebaseWrapper.timestamp.now(),
                 teamId: newTeam.id
             });
         } catch (error) {
