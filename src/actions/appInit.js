@@ -1,25 +1,35 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import { setCurrentUser } from './currentUser';
-import { setTeam } from './team';
+import { getCurrentUser } from './currentUser';
+import { getTeam } from './team';
+import { APP_INIT_REQUEST, APP_INIT_SUCCESS, APP_INIT_FAILURE } from './actionTypes';
+
+const appInitRequest = () => ({
+    type: APP_INIT_REQUEST,
+});
+
+const appInitSuccess = () => ({
+    type: APP_INIT_SUCCESS,
+});
+
+const appInitFailure = () => ({
+    type: APP_INIT_FAILURE,
+});
 
 export const appInitialize = (user) => {
     return async (dispatch) => {
-        const database = firebase.firestore();
+        dispatch(appInitRequest());
+        let getUserResult;
         try {
-            const userDocument = await database.doc(`users/${user.uid}`).get();
-            const userData = userDocument.data();
-            dispatch(setCurrentUser({
-                uid: user.uid,
-                email: user.email,
-                ...userData,
-            }));
-
-            const teamDocument = await database.doc(`teams/${userData.teamId}`).get();
-            const teamData = teamDocument.data();
-            dispatch(setTeam(teamData));
+            getUserResult = await dispatch(getCurrentUser(user));
         } catch (error) {
-            console.log('error');
+            dispatch(appInitFailure());
         }
+
+        try {
+            await dispatch(getTeam(getUserResult.user.teamId))
+        } catch (error) {
+            dispatch(appInitFailure());
+        }
+
+        dispatch(appInitSuccess());
     }
 }
