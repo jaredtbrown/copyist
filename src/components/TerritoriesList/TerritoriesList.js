@@ -16,7 +16,6 @@ import CreateIcon from '@material-ui/icons/Create';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         paddingTop: theme.mixins.toolbar.minHeight + theme.spacing(3),
@@ -42,7 +41,7 @@ const TerritoriesList = (props) => {
     }
 
     const renderTerritory = (territory) => (
-        <TableRow key={territory.id}>
+        <TableRow key={territory.id} onDoubleClick={() => props.onClick(territory)}>
             <TableCell>{territory.number}</TableCell>
             <TableCell>{`${territory.createdAt.toDate().toLocaleDateString()} ${territory.createdAt.toDate().toLocaleTimeString()}`}</TableCell>
             <TableCell>{(territory.updatedAt) ? `${territory.updatedAt.toDate().toLocaleDateString()} ${territory.updatedAt.toDate().toLocaleTimeString()}` : ''}</TableCell>
