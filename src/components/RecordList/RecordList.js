@@ -79,7 +79,7 @@ const RecordList = (props) => {
                     </Typography>
                     {
                         (useMediaQuery(theme.breakpoints.up('lg'))) &&
-                        <Button color="secondary" variant="contained">
+                        <Button color="secondary" variant="contained" onClick={props.onCreateClick}>
                             Add
                         </Button>
                     }
