@@ -40,7 +40,7 @@ const RecordList = (props) => {
     const theme = useTheme();
 
     const renderRecord = (record) => (
-        <TableRow key={record.id} onDoubleClick={() => props.onClick(record)}>
+        <TableRow key={record.id}>
             <TableCell>{`${record.createdAt.toDate().toLocaleDateString()} ${record.createdAt.toDate().toLocaleTimeString()}`}</TableCell>
             <TableCell>{(record.updatedAt) ? `${record.updatedAt.toDate().toLocaleDateString()} ${record.updatedAt.toDate().toLocaleTimeString()}` : ''}</TableCell>
             <TableCell>
