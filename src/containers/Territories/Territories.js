@@ -12,6 +12,10 @@ const Territories = (props) => {
         dispatch(getTerrritories(currentUser.teamId))
     }, [currentUser.teamId, dispatch]);
 
+    const handleOnClick = (territory) => {
+        props.history.push(`/territories/${territory.id}`);
+    };
+
     const handleOnCreateTerritoryClick = () => {
         setNewTerritoryDialogOpen(true);
     }
@@ -31,8 +35,16 @@ const Territories = (props) => {
 
     return (
         <React.Fragment>
-            <TerritoriesList territories={props.territoriesState.territories} onCreateClick={handleOnCreateTerritoryClick} />
-            <CreateTerritoryForm open={newTerritoryDialogOpen} onCreateClick={createNewTerritory} handleClose={handleOnCreateTerritoryClose} />
+            <TerritoriesList 
+                territories={props.territoriesState.territories} 
+                onClick={handleOnClick}
+                onCreateClick={handleOnCreateTerritoryClick} 
+            />
+            <CreateTerritoryForm 
+                open={newTerritoryDialogOpen} 
+                onCreateClick={createNewTerritory} 
+                handleClose={handleOnCreateTerritoryClose} 
+            />
         </React.Fragment>
     );
 }
