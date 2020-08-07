@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import SignUp from './containers/SignUp';
@@ -10,6 +10,7 @@ import { appInitialize } from './actions/appInit';
 import ProtectedRoute from './containers/ProtectedRoute';
 import Territories from './containers/Territories';
 import firebaseWrapper from './helpers/firebaseWrapper';
+import Territory from './containers/Territory';
 
 firebaseWrapper.initializeApp();
 
@@ -47,7 +48,9 @@ function App(props) {
           <Toolbar />
 
           <Switch>
-            <ProtectedRoute exact path="/" component={Territories} />
+            <ProtectedRoute exact path="/" component={() => <Redirect to="/territories" />} />
+            <ProtectedRoute exact path="/territories" component={Territories} />
+            <ProtectedRoute exact path="/territories/:territoryId" component={Territory} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
           </Switch>

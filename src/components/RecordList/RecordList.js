@@ -35,64 +35,77 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const TerritoriesList = (props) => {
-    const handleViewExternalLinkClick = (url) => {
-        window.open(url, '_blank');
-    }
-
-    const renderTerritory = (territory) => (
-        <TableRow key={territory.id} onDoubleClick={() => props.onClick(territory)}>
-            <TableCell>{territory.number}</TableCell>
-            <TableCell>{`${territory.createdAt.toDate().toLocaleDateString()} ${territory.createdAt.toDate().toLocaleTimeString()}`}</TableCell>
-            <TableCell>{(territory.updatedAt) ? `${territory.updatedAt.toDate().toLocaleDateString()} ${territory.updatedAt.toDate().toLocaleTimeString()}` : ''}</TableCell>
-            <TableCell align="right">
-                <IconButton onClick={() => handleViewExternalLinkClick(territory.externalLink)}>
-                    <MapIcon />
-                </IconButton>
-            </TableCell>
-        </TableRow>
-    );
-
+const RecordList = (props) => {
     const classes = useStyles();
     const theme = useTheme();
-    return (  
+
+    const renderRecord = (record) => (
+        <TableRow key={record.id}>
+            <TableCell>{`${record.createdAt.toDate().toLocaleDateString()} ${record.createdAt.toDate().toLocaleTimeString()}`}</TableCell>
+            <TableCell>{(record.updatedAt) ? `${record.updatedAt.toDate().toLocaleDateString()} ${record.updatedAt.toDate().toLocaleTimeString()}` : ''}</TableCell>
+            <TableCell>
+                {record.firstName}
+            </TableCell>
+            <TableCell>
+                {record.lastName}
+            </TableCell>
+            <TableCell>
+                {record.streetAddress1}
+            </TableCell>
+            <TableCell>
+                {record.streetAddress2}
+            </TableCell>
+            <TableCell>
+                {record.city}
+            </TableCell>
+            <TableCell>
+                {record.region}
+            </TableCell>
+            <TableCell>
+                {record.postcode}
+            </TableCell>
+            <TableCell>
+                {record.phone}
+            </TableCell>
+        </TableRow>
+    )
+
+    return (
         <div className={classes.root}>
             <TableContainer component={Paper}>
                 <Toolbar>
                     <Typography variant="h5" className={classes.flex}>
-                        Territories
+                        Records
                     </Typography>
                     {
                         (useMediaQuery(theme.breakpoints.up('lg'))) &&
                         <Button color="secondary" variant="contained" onClick={props.onCreateClick}>
-                            Create
+                            Add
                         </Button>
                     }
                 </Toolbar>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>#</TableCell>
                             <TableCell>Created At</TableCell>
                             <TableCell>Updated At</TableCell>
-                            <TableCell align="right">Territory Helper Link</TableCell>
+                            <TableCell>First Name</TableCell>
+                            <TableCell>Last Name</TableCell>
+                            <TableCell>Street Address 1</TableCell>
+                            <TableCell>Street Address 2</TableCell>
+                            <TableCell>City</TableCell>
+                            <TableCell>Region</TableCell>
+                            <TableCell>Postcode</TableCell>
+                            <TableCell>Phone</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.territories.map(renderTerritory)}
+                        {props.records.map(renderRecord)}
                     </TableBody>
                 </Table>
             </TableContainer>
-
-            {
-                (useMediaQuery(theme.breakpoints.down('md'))) &&
-                <Fab variant="extended" color="secondary" className={classes.fab} onClick={props.onCreateClick}>
-                    <CreateIcon className={classes.fabIcon} />
-                    Create
-                </Fab>
-            }
         </div>
     );
 }
  
-export default TerritoriesList;
+export default RecordList;
