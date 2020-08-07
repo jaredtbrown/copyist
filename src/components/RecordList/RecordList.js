@@ -75,7 +75,7 @@ const RecordList = (props) => {
             <TableContainer component={Paper}>
                 <Toolbar>
                     <Typography variant="h5" className={classes.flex}>
-                        Addresses
+                        Records
                     </Typography>
                     {
                         (useMediaQuery(theme.breakpoints.up('lg'))) &&
