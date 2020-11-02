@@ -36,20 +36,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TerritoriesList = (props) => {
-    const handleViewExternalLinkClick = (url) => {
-        window.open(url, '_blank');
-    }
-
     const renderTerritory = (territory) => (
         <TableRow key={territory.id} onDoubleClick={() => props.onClick(territory)}>
             <TableCell>{territory.number}</TableCell>
             <TableCell>{`${territory.createdAt.toDate().toLocaleDateString()} ${territory.createdAt.toDate().toLocaleTimeString()}`}</TableCell>
             <TableCell>{(territory.updatedAt) ? `${territory.updatedAt.toDate().toLocaleDateString()} ${territory.updatedAt.toDate().toLocaleTimeString()}` : ''}</TableCell>
-            <TableCell align="right">
-                <IconButton onClick={() => handleViewExternalLinkClick(territory.externalLink)}>
-                    <MapIcon />
-                </IconButton>
-            </TableCell>
         </TableRow>
     );
 
@@ -75,7 +66,6 @@ const TerritoriesList = (props) => {
                             <TableCell>#</TableCell>
                             <TableCell>Created At</TableCell>
                             <TableCell>Updated At</TableCell>
-                            <TableCell align="right">Territory Helper Link</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

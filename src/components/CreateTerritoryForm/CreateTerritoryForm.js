@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 const CreateTerritoryForm = (props) => {
     const [newTerritory, setNewTerritory] = useState({
         number: '',
-        externalLink: '',
     })
 
     const handleInputChange = (event) => {
@@ -42,15 +41,6 @@ const CreateTerritoryForm = (props) => {
                     variant="outlined"
                     type="number"
                     name="number"
-                    onChange={handleInputChange}
-                    fullWidth
-                    className={classes.textFields}
-                />
-                <TextField
-                    label="External Link"
-                    variant="outlined"
-                    type="text"
-                    name="externalLink"
                     onChange={handleInputChange}
                     fullWidth
                     className={classes.textFields}
