@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     signUpCard: {
         margin: '0 auto',
         padding: theme.spacing(3),
-        borderRadius: 16,
         maxWidth: 400,
     },
 }));

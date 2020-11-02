@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2),
     },
     paper: {
-        borderRadius: 16,
         padding: theme.spacing(3)
     },
 }));
