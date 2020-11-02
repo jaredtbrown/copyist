@@ -32,20 +32,24 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         bottom: theme.spacing(3),
         right: theme.spacing(3)
-    }
+    },
+    tableRow: {
+        cursor: 'pointer',
+    },
 }));
 
 const TerritoriesList = (props) => {
+    const classes = useStyles();
+    const theme = useTheme();
+
     const renderTerritory = (territory) => (
-        <TableRow key={territory.id} onDoubleClick={() => props.onClick(territory)}>
+        <TableRow className={classes.tableRow} key={territory.id} onDoubleClick={() => props.onClick(territory)}>
             <TableCell>{territory.number}</TableCell>
             <TableCell>{`${territory.createdAt.toDate().toLocaleDateString()} ${territory.createdAt.toDate().toLocaleTimeString()}`}</TableCell>
             <TableCell>{(territory.updatedAt) ? `${territory.updatedAt.toDate().toLocaleDateString()} ${territory.updatedAt.toDate().toLocaleTimeString()}` : ''}</TableCell>
         </TableRow>
     );
-
-    const classes = useStyles();
-    const theme = useTheme();
+    
     return (  
         <div className={classes.root}>
             <TableContainer component={Paper}>
